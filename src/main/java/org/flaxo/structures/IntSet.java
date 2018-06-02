@@ -1,11 +1,26 @@
 package org.flaxo.structures;
 
+import java.util.ArrayList;
+
 /**
  * Структура данных - множество неотрицательных целых чисел.
  */
 public class IntSet {
 
-    private IntSet() {}
+    ArrayList<Integer> union;
+
+    private IntSet() {
+        union = new ArrayList<Integer>();
+    }
+
+    private IntSet(int... values) {
+        union = new ArrayList<Integer>();
+        for(int i = 0; i < values.length; i++) {
+            if (values[i] < 0)
+                throw new UnsupportedOperationException("Incorrect number");
+            add(values[i]);
+        }
+    }
 
     /**
      * Возвращает пустое множество.
@@ -13,8 +28,7 @@ public class IntSet {
      * @return Пустое множество.
      */
     public static IntSet empty() {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        return new IntSet();
     }
 
     /**
@@ -24,8 +38,7 @@ public class IntSet {
      * @return Множество переданных чисел.
      */
     public static IntSet of(final int... values) {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        return new IntSet(values);
     }
 
     /**
@@ -34,8 +47,10 @@ public class IntSet {
      * @param value Число, которое необходимо добавить во множество.
      */
     public void add(final int value) {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        if (value < 0)
+            throw new UnsupportedOperationException("Incorrect number");
+        if (!contains(value))
+            union.add(value);
     }
 
     /**
@@ -44,8 +59,9 @@ public class IntSet {
      * @param value Число, которое необходимо удалить из множества.
      */
     public void remove(final int value) {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        if (contains(value)) {
+            union.remove(value);
+        }
     }
 
     /**
@@ -55,8 +71,7 @@ public class IntSet {
      * @return true если множество содержит значение, иначе - false.
      */
     public boolean contains(final int value) {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        return union.contains(value);
     }
 
     /**
@@ -65,8 +80,7 @@ public class IntSet {
      * @return Размер множества.
      */
     public int size() {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        return union.size();
     }
 
     /**
@@ -79,8 +93,10 @@ public class IntSet {
      * @return Множество, являющееся результатом объединения двух множеств.
      */
     public IntSet union(final IntSet other) {
-        // todo: Необходимо добавить реализацию метода
-        throw new UnsupportedOperationException("Method is not implemented yet");
+        for (int i = 0; i < other.size(); i++)
+            if (contains(other.union.get(i)))
+                add(other.union.get(i));
+        return this;
     }
 
     /**
